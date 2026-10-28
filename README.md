@@ -24,6 +24,10 @@ A beginner-friendly Kannada phrase guide built with React, Vite, JavaScript, CSS
 
 Run `npm run build`. Vite writes the production-ready site to `dist/`. To preview that build locally, run `npm run preview`.
 
+## Deploy to GitHub Pages
+
+The GitHub Actions workflow in `.github/workflows/deploy.yml` builds and deploys the site whenever code is pushed to `main`. GitHub Pages is configured to publish the workflow output. The project base path is configured for `https://kavanakavana4845-ui.github.io/Kannada-Learning/`.
+
 ## Features
 
 - Five everyday categories with 12 phrases each.
