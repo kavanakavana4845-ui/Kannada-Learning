@@ -1,0 +1,5 @@
+:root { font-family: 'DM Sans', 'Noto Sans Kannada', system-ui, sans-serif; color: #263a35; background: #fffdf8; font-synthesis: none; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; background: #fffdf8; }
+#root { width: 100%; max-width: none; min-height: 100vh; margin: 0; border: 0; display: block; text-align: left; }
+button, input { font: inherit; }

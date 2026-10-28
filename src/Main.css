@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root { font-family: 'DM Sans', 'Noto Sans Kannada', system-ui, sans-serif; color: #263a35; background: #fffdf8; font-synthesis: none; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-optical-sizing: auto; font-weight: 400; color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; background: #fffdf8; }
+#root { width: 100%; max-width: none; min-height: 100vh; margin: 0; border: 0; display: block; text-align: left; }
+button, input { font: inherit; }
+button { color: inherit; }
+.app-shell { --forest: #174c3d; --green: #28745c; --muted: #718078; --line: #e9e9df; width: 100%; overflow: hidden; }
+.topbar { height: 82px; max-width: 1160px; padding: 0 30px; margin: auto; display: flex; align-items: center; justify-content: space-between; }
+.brand { color: #193d32; text-decoration: none; display: flex; gap: 10px; align-items: center; font: 800 17px/1.05 Manrope, sans-serif; letter-spacing: -.5px; }
+.brand-mark { height: 39px; width: 39px; display: grid; place-items: center; border-radius: 13px; background: #e5f0e6; color: #2f7155; font: 700 24px/1 'Noto Sans Kannada', sans-serif; }
+.brand-accent { color: #438260; }
+.brand small { display: block; margin-top: 5px; color: #84918a; font: 500 10px/1 'DM Sans', sans-serif; letter-spacing: .25px; }
+.nav-links { display: flex; align-items: center; gap: 33px; }
+.nav-link { background: none; border: 0; color: #69776f; font-size: 13px; cursor: pointer; padding: 9px 0; }
+.nav-link:hover, .nav-link.active { color: var(--forest); }
+.nav-cta { text-decoration: none; display: inline-flex; gap: 10px; align-items: center; justify-content: center; background: #205a46; color: white; border: 0; border-radius: 8px; padding: 12px 17px; font-size: 12px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 10px #174c3d1c; transition: background .2s, transform .2s; }
+.nav-cta:hover { background: #174b3a; transform: translateY(-1px); }
+.mobile-menu-button { display: none; border: 0; background: transparent; }
+.hero-section { max-width: 1160px; min-height: 480px; padding: 40px 34px 52px; margin: auto; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 20px; }
+.hero-copy { padding: 12px 0 20px 17px; }
+.eyebrow { color: #53886a; font-size: 10px; letter-spacing: 1.65px; font-weight: 700; }
+.sparkle { color: #de9c51; margin-right: 8px; font-size: 15px; vertical-align: -1px; }
+.hero-copy h1, .page-heading h1 { font: 700 51px/1.12 Manrope, 'Noto Sans Kannada', sans-serif; letter-spacing: -2.5px; color: #183d32; margin: 22px 0 17px; }
+.hero-copy h1 em { font-family: Georgia, serif; color: #4f8767; font-weight: 500; }
+.hero-description { max-width: 430px; color: #77837c; font-size: 14px; line-height: 1.8; }
+.search-wrap { width: min(100%, 475px); margin-top: 27px; height: 53px; border-radius: 9px; background: white; border: 1px solid #e6e9df; display: flex; align-items: center; gap: 12px; padding: 0 14px; box-shadow: 0 7px 24px #2c55400a; color: #8a988f; }
+.search-wrap:focus-within { border-color: #76a287; box-shadow: 0 0 0 3px #4f87671a; }
+.search-wrap input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: #33463d; font-size: 12px; }
+.search-wrap input::placeholder { color: #a1aaa4; }
+.search-wrap kbd { color: #9ba59e; font-size: 11px; border: 1px solid #e6e9e2; padding: 2px 6px; border-radius: 4px; }
+.quick-search { margin-top: 14px; color: #95a098; font-size: 10px; }
+.quick-search button { background: none; border: 0; padding: 0 0 0 6px; font-size: 10px; color: #578468; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+.hero-art { position: relative; justify-self: end; width: min(100%, 490px); height: 395px; background: #f0f2e8; border-radius: 48% 46% 17px 17px; overflow: hidden; }
+.sun-disc { position: absolute; width: 256px; height: 256px; border-radius: 50%; top: 54px; left: 50%; transform: translateX(-50%); background: #e2e9d5; }
+.art-leaf { position: absolute; z-index: 2; color: #d1954e; font-size: 24px; }
+.leaf-one { top: 47px; left: 80px; }.leaf-two { right: 52px; top: 120px; font-size: 18px; }
+.speech-bubble { position: absolute; z-index: 4; padding: 9px 14px; border-radius: 10px; background: white; box-shadow: 0 6px 15px #344e3b12; font-size: 11px; }
+.bubble-kannada { top: 73px; left: 59px; color: #347255; font: 500 15px 'Noto Sans Kannada', sans-serif; }
+.bubble-english { top: 111px; right: 41px; color: #777f75; }.bubble-english span { color: #d49b54; font-size: 15px; margin-left: 4px; }
+.person { position: absolute; bottom: 45px; z-index: 2; width: 150px; height: 229px; }
+.person-left { left: calc(50% - 153px); }.person-right { left: calc(50% + 10px); transform: scaleX(-1); }
+.person .face { position: absolute; top: 53px; left: 39px; width: 72px; height: 86px; border-radius: 45% 45% 48% 48%; background: #bd7954; z-index: 2; }
+.person-right .face { background: #d29a70; }
+.person .hair { position: absolute; z-index: 3; top: 40px; left: 35px; width: 79px; height: 51px; border-radius: 55% 50% 25% 15%; background: #302d26; transform: rotate(-5deg); }
+.person-right .hair { background: #211f1d; height: 62px; }
+.person .eye { position: absolute; top: 40px; left: 20px; width: 4px; height: 5px; border-radius: 50%; background: #302a25; }.person .eye:nth-child(2) { left: 49px; }
+.person .smile { position: absolute; left: 28px; top: 56px; width: 17px; height: 7px; border-bottom: 1.5px solid #6d3d32; border-radius: 50%; }
+.person .body { position: absolute; bottom: -24px; left: 4px; width: 142px; height: 123px; border-radius: 49% 49% 0 0; background: #4b805f; }
+.person-right .body { background: #c97857; }
+.art-caption { position: absolute; bottom: 16px; z-index: 3; left: 0; right: 0; display: flex; justify-content: center; align-items: center; gap: 9px; color: #738078; font-size: 10px; }
+.art-caption span:first-child { color: #3b7558; font: 500 13px 'Noto Sans Kannada', sans-serif; }
+.content-section { max-width: 1160px; padding: 39px 48px 58px; margin: auto; }
+.section-heading { margin-bottom: 24px; }
+.section-heading h2 { color: #1d4236; font: 700 25px/1.25 Manrope, sans-serif; letter-spacing: -.7px; margin: 9px 0 6px; }
+.section-heading p { color: #8a958d; font-size: 12px; margin: 0; }
+.category-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 13px; }
+.category-card { position: relative; min-height: 141px; padding: 19px 16px; border: 1px solid transparent; border-radius: 11px; text-align: left; display: flex; flex-direction: column; align-items: flex-start; cursor: pointer; transition: transform .2s, box-shadow .2s; }
+.category-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px #193e3210; }
+.category-card.peach, .category-icon.peach { background: #fcf0e9; }.category-card.blue, .category-icon.blue { background: #edf3f6; }.category-card.lavender, .category-icon.lavender { background: #f3eff8; }.category-card.mint, .category-icon.mint { background: #edf4ed; }.category-card.yellow, .category-icon.yellow { background: #faf3e5; }
+.category-icon { width: 39px; height: 39px; display: grid; place-items: center; border-radius: 11px; color: #527b63; }
+.category-card strong { display: block; margin-top: 14px; color: #35473d; font-size: 12px; font-weight: 700; }
+.category-card small { display: block; color: #89948c; font-size: 9px; line-height: 1.5; margin-top: 4px; }
+.category-arrow { position: absolute; right: 13px; top: 14px; color: #84988a; opacity: 0; transition: opacity .2s, transform .2s; }.category-card:hover .category-arrow { opacity: 1; transform: translateX(2px); }
+.popular-section { border-top: 1px solid #efefe7; padding-top: 44px; }
+.section-title-row { display: flex; justify-content: space-between; align-items: end; gap: 20px; }
+.text-link { display: inline-flex; align-items: center; gap: 8px; border: 0; background: none; color: #4f8163; font-size: 11px; cursor: pointer; padding: 10px 0; white-space: nowrap; }
+.phrase-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+.phrase-card { position: relative; min-height: 156px; border: 1px solid #e9ece4; background: #fff; border-radius: 10px; padding: 17px 52px 16px 19px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.phrase-label { font-size: 8px; letter-spacing: 1.1px; font-weight: 700; color: #89968d; }
+.phrase-card .kannada { margin: 11px 0 5px; color: #326448; font: 500 20px/1.5 'Noto Sans Kannada', sans-serif; }
+.phrase-card .meaning { color: #55635b; font-size: 11px; margin: 0; }
+.phrase-detail { border-left: 1px solid #edf0e9; padding-left: 15px; }
+.pronunciation { color: #57685c; font-size: 11px; margin: 12px 0 8px; }
+.phrase-detail .context { color: #929b94; font-size: 10px; line-height: 1.5; margin: 0; }
+.phrase-actions { position: absolute; display: flex; right: 11px; top: 13px; flex-direction: column; gap: 6px; }
+.icon-button { width: 29px; height: 29px; border: 1px solid #e9ede7; color: #668372; background: #fff; border-radius: 7px; display: grid; place-items: center; cursor: pointer; }.icon-button:hover { background: #eff5ef; color: #285c42; }
+.phrase-feedback { grid-column: 1/-1; color: #537d61; font-size: 10px; margin-top: -6px; }
+.page-section { min-height: 70vh; padding-top: 35px; }
+.back-button { display: inline-flex; gap: 8px; align-items: center; padding: 6px 0; margin-bottom: 27px; border: 0; background: none; color: #64806e; font-size: 12px; cursor: pointer; }
+.page-heading { display: flex; align-items: center; gap: 17px; margin-bottom: 22px; }.page-heading .category-icon { width: 52px; height: 52px; border-radius: 14px; flex: 0 0 auto; }
+.page-heading h1 { margin: 6px 0; font-size: 34px; letter-spacing: -1.2px; }.page-heading p { color: #87928b; font-size: 12px; margin: 0; }
+.review-note { display: flex; gap: 10px; align-items: flex-start; border: 1px solid #f1e4c9; background: #fff9ed; border-radius: 8px; padding: 12px 15px; margin: 20px 0 21px; color: #786b4d; }.review-note span { color: #bf9051; }.review-note p { font-size: 10px; line-height: 1.6; margin: 0; }
+.conversation-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; }.conversation-card { border: 1px solid #e8ece4; border-radius: 10px; background: white; overflow: hidden; }.conversation-card > header { display: flex; align-items: center; gap: 10px; padding: 15px 17px; border-bottom: 1px solid #eef0ea; }.conversation-icon { width: 34px; height: 34px; border-radius: 9px; background: #eff4ec; display: grid; place-items: center; color: #557d61; }.conversation-card header h2 { flex: 1; font: 700 12px Manrope, sans-serif; color: #385143; margin: 0; }.conversation-card header > svg:last-child { color: #9ca79f; }
+.conversation-lines { padding: 7px 16px 12px; }.dialogue-line { position: relative; padding: 10px 10px 10px 0; border-bottom: 1px solid #f1f2ed; }.dialogue-line:last-child { border: 0; }.dialogue-line.mine { padding-left: 11px; border-left: 2px solid #9bb69e; }.speaker { color: #829187; font-size: 8px; letter-spacing: .6px; text-transform: uppercase; font-weight: 700; }.dialogue-line .kannada { color: #326448; font: 500 16px/1.5 'Noto Sans Kannada', sans-serif; margin: 3px 0; }.dialogue-line .meaning { color: #55635b; font-size: 10px; }.dialogue-line small { display: block; margin-top: 4px; color: #929b94; font-size: 9px; }
+.empty-state { border: 1px dashed #dce5d9; background: #fbfcf8; border-radius: 12px; padding: 40px 18px; text-align: center; }.empty-icon { margin: auto; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: #eef4eb; color: #668a6f; }.empty-state h3 { margin: 13px 0 6px; font: 700 16px Manrope, sans-serif; color: #355443; }.empty-state p { color: #88948b; font-size: 11px; margin: 0 auto 16px; max-width: 360px; }.footer { max-width: 1160px; margin: auto; padding: 26px 48px 30px; border-top: 1px solid #eeefe8; display: flex; align-items: center; gap: 20px; }.footer-brand .brand-mark { width: 31px; height: 31px; font-size: 19px; border-radius: 10px; }.footer-brand { font-size: 14px; }.footer-brand small { font-size: 8px; }.footer > p { color: #9aa39b; font-size: 10px; flex: 1; }.footer-note { display: inline-flex; gap: 6px; align-items: center; color: #819087; font-size: 9px; }
+@media (max-width: 800px) { .hero-section { min-height: 420px; padding: 35px 27px; gap: 5px; }.hero-copy { padding-left: 0; }.hero-copy h1 { font-size: 40px; }.hero-art { height: 335px; }.person { transform: scale(.83); transform-origin: bottom center; }.person-right { transform: scaleX(-1) scale(.83); }.category-grid { grid-template-columns: repeat(3, 1fr); }.content-section { padding-inline: 28px; } }
+@media (max-width: 600px) { .topbar { height: 70px; padding: 0 20px; }.brand { font-size: 15px; }.brand-mark { width: 35px; height: 35px; }.mobile-menu-button { display: grid; place-items: center; color: #345c49; cursor: pointer; }.nav-links { display: none; position: absolute; z-index: 10; top: 63px; right: 14px; left: 14px; padding: 17px; border: 1px solid #e7ebe2; border-radius: 12px; background: #fffdf8; box-shadow: 0 12px 30px #173a2e16; align-items: stretch; gap: 11px; }.nav-links.nav-open { display: flex; flex-direction: column; }.nav-link { text-align: left; }.nav-cta { align-self: flex-start; }.hero-section { display: flex; flex-direction: column; align-items: stretch; padding: 35px 22px 29px; gap: 28px; }.hero-copy h1 { font-size: 40px; letter-spacing: -1.8px; margin-top: 17px; }.hero-description { font-size: 13px; }.hero-art { justify-self: auto; align-self: center; width: min(100%, 420px); height: 300px; }.sun-disc { width: 213px; height: 213px; top: 41px; }.person { transform: scale(.78); transform-origin: bottom center; bottom: 35px; }.person-left { left: calc(50% - 143px); }.person-right { left: calc(50% + 4px); transform: scaleX(-1) scale(.78); }.bubble-kannada { left: 27px; top: 49px; }.bubble-english { right: 18px; top: 89px; }.content-section { padding: 34px 21px 42px; }.section-heading h2 { font-size: 22px; }.category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }.category-card { min-height: 135px; padding: 15px 13px; }.section-title-row { align-items: flex-start; flex-direction: column; gap: 0; }.text-link { padding-top: 0; padding-bottom: 16px; }.phrase-list, .conversation-grid { grid-template-columns: 1fr; }.phrase-card { min-height: 148px; padding-left: 14px; gap: 10px; }.phrase-card .kannada { font-size: 17px; }.phrase-detail { padding-left: 11px; }.page-heading { align-items: flex-start; }.page-heading h1 { font-size: 28px; }.page-heading .category-icon { width: 44px; height: 44px; }.footer { padding: 21px; flex-wrap: wrap; gap: 12px; }.footer > p { flex-basis: calc(100% - 150px); text-align: right; }.footer-note { width: 100%; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
