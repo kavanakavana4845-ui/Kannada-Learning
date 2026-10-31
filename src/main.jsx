@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { ArrowLeft, ArrowRight, BookOpen, Check, ChevronDown, Copy, HeartPulse, Map, Menu, MessageCircle, Mic2, Search, ShoppingBag, Utensils, Volume2, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen, Brain, Check, ChevronDown, Copy, HeartPulse, Map, Menu, MessageCircle, Mic2, RotateCcw, Search, ShoppingBag, Utensils, Volume2, X } from 'lucide-react'
 import { createEspeak, toFloat32 } from '@spelling-creator/spellophone/browser'
 import { categories, conversations, phrases } from './data/phrases'
 import './Main.css'
@@ -89,11 +89,24 @@ function PhraseCard({ phrase }) {
   </article>
 }
 
+function createQuizQuestions(categoryId) {
+  const pool = categoryId === 'all' ? phrases : phrases.filter((phrase) => phrase.category === categoryId)
+  return [...pool].sort(() => Math.random() - 0.5).slice(0, Math.min(10, pool.length)).map((phrase) => {
+    const distractors = phrases.filter((option) => option.id !== phrase.id).sort(() => Math.random() - 0.5).slice(0, 3)
+    return { phrase, options: [phrase, ...distractors].sort(() => Math.random() - 0.5) }
+  })
+}
+
 export default function Main() {
   const [view, setView] = useState('home')
   const [activeCategory, setActiveCategory] = useState(null)
   const [query, setQuery] = useState('')
   const [mobileMenu, setMobileMenu] = useState(false)
+  const [quizCategory, setQuizCategory] = useState('all')
+  const [quizQuestions, setQuizQuestions] = useState([])
+  const [quizIndex, setQuizIndex] = useState(0)
+  const [quizAnswer, setQuizAnswer] = useState(null)
+  const [quizScore, setQuizScore] = useState(0)
   const normalizedQuery = query.trim().toLocaleLowerCase()
   const searchResults = useMemo(() => normalizedQuery ? phrases.filter((phrase) => [phrase.kannada, phrase.meaning, phrase.pronunciation, phrase.context, ...phrase.keywords].join(' ').toLocaleLowerCase().includes(normalizedQuery)) : [], [normalizedQuery])
   const visiblePhrases = activeCategory ? phrases.filter((phrase) => phrase.category === activeCategory.id) : []
@@ -101,11 +114,14 @@ export default function Main() {
 
   function openCategory(category) { setActiveCategory(category); setView('category'); setQuery(''); window.scrollTo({ top: 0, behavior: 'smooth' }) }
   function goHome() { setView('home'); setActiveCategory(null); setQuery(''); window.scrollTo({ top: 0, behavior: 'smooth' }) }
+  function startQuiz() { setQuizQuestions(createQuizQuestions(quizCategory)); setQuizIndex(0); setQuizAnswer(null); setQuizScore(0) }
+  function answerQuiz(option) { if (quizAnswer) return; setQuizAnswer(option.id); if (option.id === quizQuestions[quizIndex].phrase.id) setQuizScore((score) => score + 1) }
+  function nextQuizQuestion() { setQuizAnswer(null); setQuizIndex((index) => index + 1) }
 
   return <div className="app-shell">
     <header className="topbar"><a className="brand" href="#home" onClick={(event) => { event.preventDefault(); goHome() }}><span className="brand-mark">ಕ</span><span>Kannada<span className="brand-accent">Mitra</span><small>Kannada for Real Life</small></span></a>
       <button className="mobile-menu-button" aria-label={mobileMenu ? 'Close menu' : 'Open menu'} onClick={() => setMobileMenu(!mobileMenu)}>{mobileMenu ? <X /> : <Menu />}</button>
-      <nav className={mobileMenu ? 'nav-links nav-open' : 'nav-links'} aria-label="Main navigation"><button className={view === 'home' ? 'nav-link active' : 'nav-link'} onClick={goHome}>Explore phrases</button><button className={view === 'conversations' ? 'nav-link active' : 'nav-link'} onClick={() => { setView('conversations'); setMobileMenu(false); setQuery('') }}>Conversations</button><a className="nav-cta" href="#categories" onClick={(e) => { e.preventDefault(); goHome(); document.getElementById('categories')?.scrollIntoView({ behavior: 'smooth' }) }}>Start learning <ArrowRight size={16} /></a></nav>
+      <nav className={mobileMenu ? 'nav-links nav-open' : 'nav-links'} aria-label="Main navigation"><button className={view === 'home' || view === 'category' ? 'nav-link active' : 'nav-link'} onClick={() => { goHome(); setMobileMenu(false) }}>Explore phrases</button><button className={view === 'conversations' ? 'nav-link active' : 'nav-link'} onClick={() => { setView('conversations'); setMobileMenu(false); setQuery('') }}>Conversations</button><button className={view === 'quiz' ? 'nav-link active' : 'nav-link'} onClick={() => { setView('quiz'); setMobileMenu(false); setQuery(''); setQuizQuestions([]) }}>Quizzes</button><a className="nav-cta" href="#categories" onClick={(e) => { e.preventDefault(); goHome(); document.getElementById('categories')?.scrollIntoView({ behavior: 'smooth' }) }}>Start learning <ArrowRight size={16} /></a></nav>
     </header>
     <main>
       {view === 'home' && <>
@@ -120,6 +136,20 @@ export default function Main() {
       </>}
       {view === 'category' && <section className="content-section page-section"><button className="back-button" onClick={goHome}><ArrowLeft size={17} /> All categories</button><div className="page-heading"><span className={`category-icon ${activeCategory?.color}`}><Icon name={activeCategory?.icon} size={24} /></span><div><span className="eyebrow">A LITTLE MORE CONFIDENCE</span><h1>{title}</h1><p>{activeCategory?.description} Choose a phrase to practise.</p></div></div><div className="review-note"><span>✳</span><p>These phrases are a learning draft and have not been reviewed by a native speaker. Please confirm wording and pronunciation before relying on them in important situations.</p></div><div className="phrase-list">{visiblePhrases.map((phrase) => <PhraseCard key={phrase.id} phrase={phrase} />)}</div></section>}
       {view === 'conversations' && <section className="content-section page-section"><button className="back-button" onClick={goHome}><ArrowLeft size={17} /> Back to explore</button><div className="page-heading"><span className="category-icon peach"><MessageCircle size={24} /></span><div><span className="eyebrow">PRACTISE A REAL MOMENT</span><h1>{title}</h1><p>Short, practical exchanges to help a conversation get going.</p></div></div><div className="review-note"><span>✳</span><p>Conversation examples are learning drafts and have not been reviewed by a native speaker. Check them with a fluent Kannada speaker before using them in important situations.</p></div><div className="conversation-grid">{conversations.map((conversation) => <article className="conversation-card" key={conversation.id}><header><span className="conversation-icon"><Icon name={conversation.icon} size={20} /></span><h2>{conversation.title}</h2><ChevronDown size={17} /></header><div className="conversation-lines">{conversation.lines.map(([speaker, kannada, meaning, pronunciation], index) => <div className={`dialogue-line ${speaker === 'You' ? 'mine' : ''}`} key={`${conversation.id}-${index}`}><span className="speaker">{speaker}</span><p className="kannada" lang="kn">{kannada}</p><p className="meaning">{meaning}</p><small>{pronunciation}</small></div>)}</div></article>)}</div></section>}
+      {view === 'quiz' && <section className="content-section page-section quiz-section">
+        <div className="page-heading"><span className="category-icon mint"><Brain size={24} /></span><div><span className="eyebrow">A LITTLE PRACTICE</span><h1>Kannada quiz</h1><p>Match everyday meanings with the Kannada phrases you have learned.</p></div></div>
+        {!quizQuestions.length ? <div className="quiz-start-card"><label htmlFor="quiz-category">Choose a situation</label><select id="quiz-category" value={quizCategory} onChange={(event) => setQuizCategory(event.target.value)}><option value="all">All situations</option>{categories.map((category) => <option value={category.id} key={category.id}>{category.name}</option>)}</select><p>Each round has up to 10 multiple choice questions.</p><button className="nav-cta" onClick={startQuiz}>Start quiz <ArrowRight size={16} /></button></div> : quizIndex >= quizQuestions.length ? <div className="quiz-result-card"><span className="quiz-result-icon"><Check size={25} /></span><span className="eyebrow">ROUND COMPLETE</span><h2>You got {quizScore} out of {quizQuestions.length}</h2><p>{quizScore === quizQuestions.length ? 'Perfect round! You know these phrases well.' : 'Nice practice. Try another round to build your confidence.'}</p><button className="nav-cta" onClick={startQuiz}><RotateCcw size={16} /> Play again</button></div> : <article className="quiz-card">
+          <div className="quiz-progress-row"><span>QUESTION {quizIndex + 1} OF {quizQuestions.length}</span><span>{quizScore} correct</span></div><div className="quiz-progress"><span style={{ width: `${((quizIndex + 1) / quizQuestions.length) * 100}%` }} /></div>
+          <p className="quiz-prompt">How do you say this in Kannada?</p><h2 className="quiz-meaning">{quizQuestions[quizIndex].phrase.meaning}</h2>
+          <div className="quiz-options">{quizQuestions[quizIndex].options.map((option) => {
+            const isCorrect = option.id === quizQuestions[quizIndex].phrase.id
+            const isSelected = quizAnswer === option.id
+            const stateClass = quizAnswer ? (isCorrect ? ' correct' : isSelected ? ' incorrect' : '') : ''
+            return <button key={option.id} className={`quiz-option${stateClass}`} onClick={() => answerQuiz(option)} disabled={Boolean(quizAnswer)}><span className="quiz-option-kannada" lang="kn">{option.kannada}</span><span className="quiz-option-pronunciation">{option.pronunciation}</span>{quizAnswer && isCorrect && <Check size={18} />}</button>
+          })}</div>
+          {quizAnswer && <div className={`quiz-feedback ${quizAnswer === quizQuestions[quizIndex].phrase.id ? 'is-correct' : 'is-incorrect'}`} role="status"><strong>{quizAnswer === quizQuestions[quizIndex].phrase.id ? 'Correct!' : 'Not quite.'}</strong><span>{quizQuestions[quizIndex].phrase.context}</span><button className="nav-cta" onClick={nextQuizQuestion}>{quizIndex === quizQuestions.length - 1 ? 'See results' : 'Next question'} <ArrowRight size={16} /></button></div>}
+        </article>}
+      </section>}
     </main>
     <footer className="footer"><a className="brand footer-brand" href="#home" onClick={(e) => { e.preventDefault(); goHome() }}><span className="brand-mark">ಕ</span><span>Kannada<span className="brand-accent">Mitra</span><small>Kannada for Real Life</small></span></a><p>A few words can open a whole new world.</p><span className="footer-note"><Mic2 size={15} /> Made for everyday moments in Karnataka</span></footer>
   </div>
